@@ -1,5 +1,6 @@
 import os
 import subprocess
+import json
 import mysql.connector as mariadb
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, jsonify, request
@@ -73,14 +74,14 @@ def upload_speech():
     mariadb_connection.commit()
     return jsonify('Uploaded successfully')
 
-@app.route('/api/process', methods=['GET'])
+@app.route('/api/process', methods=['GET','POST'])
 def process():
     course_id = request.form.get('id')
-    sql = "select * from imgs where id='%s'" % (course_id)
+    sql = "select * from imgs where course_id=%s" % (course_id)
     print(sql)
     cursor.execute(sql)
     for i in cursor:
-        img_url = i['img_url']
+        img_url = i[2].decode('utf-8')
         cmd = 'python Face/face.py  "%s"' % img_url
         result_str = subprocess.check_output(cmd,shell=True)
         result_list = eval(result_str)
@@ -93,14 +94,16 @@ def process():
     return "OK"
 
 
-@app.route('/api/finish', methods=['GET'])
+@app.route('/api/result', methods=['GET'])
 def finish():
     course_id = request.form.get('id')
-    sql = "select * from attention inner_join users on attention.user_id=users.face_id  where id='%s'" % (course_id)
+    sql = "select name,time,attention from attention inner_join users on attention.user_id=users.face_id  where course_id='%s'" % (course_id)
     print(sql)
     cursor.execute(sql)
-    mariadb_connection.commit()
-    return sql
+    r = []
+    for i in cursor:
+        r.append(i)
+    return json.dumps(r)
 
 @app.route('/test', methods=['GET'])
 def test():
