@@ -138,4 +138,4 @@ for i in range(len(data)):
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
-print(list(zip(similarity, attentions)))
+print(list(zip(similarity, attentions[0])))

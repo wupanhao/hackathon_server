@@ -1,0 +1,105 @@
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+104.131.147.34 - - [24/Jun/2017 21:42:20] "GET /test/upload HTTP/1.1" 200 -
+104.131.147.34 - - [24/Jun/2017 21:42:21] "GET /favicon.ico HTTP/1.1" 404 -
+104.131.147.34 - - [24/Jun/2017 21:42:43] "POST /api/upload HTTP/1.1" 200 -
+13.93.208.87 - - [24/Jun/2017 21:45:40] "GET /static/upload/1.jpg HTTP/1.1" 200 -
+223.104.3.178 - - [24/Jun/2017 22:05:48] "POST /api/upload HTTP/1.1" 200 -
+ * Detected change in '/root/hackathon_server/server.py', reloading
+1.jpg
+1.jpg
+http://43.241.238.58:5000/static/upload/1.jpg
+insert into attention values('None','yyf','<module 'time' (built-in)>','0.5') 
+insert into attention values('None','wph','<module 'time' (built-in)>','1') 
+IMG_201706251005472041.jpg
+IMG_201706251005472041.jpg
+http://43.241.238.58:5000/static/upload/IMG_201706251005472041.jpg
+insert into attention values('201706251005419997','yyf','<module 'time' (built-in)>','0.5') 
+insert into attention values('201706251005419997','wph','<module 'time' (built-in)>','1') 
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+Traceback (most recent call last):
+  File "server.py", line 8, in <module>
+    array = np.array
+NameError: name 'np' is not defined
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
+ * Detected change in '/root/hackathon_server/server.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 141-348-770
