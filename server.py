@@ -49,34 +49,37 @@ def api_upload():
         img_url = "http://43.241.238.58:5000/static/upload/%s" % fname
         cmd = 'python face.py  "%s"' % img_url
         print(img_url)
-        a=[('yyf',0.5),('wph',1)]
+        a = [('yyf', 0.5), ('wph', 1)]
         # a = subprocess.check_output(cmd,shell=True)
         # print(a)
         id = request.form.get('id')
         date = request.form.get('date')
-        for name,attention in a:
-            sql = "insert into attention values('%s','%s','%s','%s') " % (id,name,time,attention)
+        for name, attention in a:
+            sql = "insert into attention values('%s','%s','%s','%s') " % (id, name, time, attention)
             print(sql)
         return jsonify({"errno": 0, "errmsg": "上传成功", "token": token})
     else:
         return jsonify({"errno": 1001, "errmsg": "上传失败"})
 
-@app.route('/api/speech',methods=['POST'])
+
+@app.route('/api/speech', methods=['POST'])
 def upload_speech():
     date = request.form.get('date')
     text = request.form.get('text')
-    sql = "insert into text values ('%s','%s')" % (date,text.encode('utf-8'))
+    sql = "insert into text values ('%s','%s')" % (date, text.encode('utf-8'))
     print(sql)
     return sql
 
-@app.route('/api/finish',methods=['GET'])
+
+@app.route('/api/finish', methods=['GET'])
 def finish():
     id = request.form.get('id')
     sql = "select * from courses where id='%s'" % (id)
     print(sql)
     return sql
 
-@app.route('/test',methods=['GET'])
+
+@app.route('/test', methods=['GET'])
 def test():
     a = [('yyf', 0.5), ('wph', 1)]
     id = request.form.get('id')
@@ -85,5 +88,7 @@ def test():
         sql = "insert into attention values('%s','%s','%s','%s') " % (id, name, date, attention)
         print(sql)
     return jsonify({"errno": 0, "errmsg": "success"})
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

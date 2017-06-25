@@ -1,4 +1,3 @@
-########### Python 3.6 #############
 import http.client, urllib.request, urllib.parse, urllib.error, base64, requests, json
 import sys
 import numpy as np
@@ -6,38 +5,29 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation
 from keras.optimizers import SGD
 import h5py
-###############################################
-#### Update or verify the following values. ###
-###############################################
 
-# Replace the subscription_key string value with your valid subscription key.
 subscription_key = '03419b61d0c34ae7bce784ed92fdbe80'
 
-# Replace or verify the region.
-#
-# You must use the same region in your REST API call as you used to obtain your subscription keys.
-# For example, if you obtained your subscription keys from the westus region, replace
-# "westcentralus" in the URI below with "westus".
-#
-# NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
-# a free trial subscription key, you should not need to change this region.
 uri_base = 'https://westus.api.cognitive.microsoft.com'
 
-def search_face(face_id):
-    body = {
-    "faceId":face_id,
-    "faceListId":"aihackathon",
-    "maxNumOfCandidatesReturned":10,
-    "mode": "matchPerson"
-}
-    api = "https://westus.api.cognitive.microsoft.com/face/v1.0/findsimilars"
-    r = requests.post(api, headers=headers,data=json.dumps(body))
-    faces = r.json()
-    person = b[0]
-    for i in b:
-        if person["confidence"] < i["confidence"]:
-            person = i
-    print(person["persistedFaceId"])
+
+# def search_face(face_id):
+#     body = {
+#         "faceId": face_id,
+#         "faceListId": "aihackathon",
+#         "maxNumOfCandidatesReturned": 10,
+#         "mode": "matchPerson"
+#     }
+#     api = "https://westus.api.cognitive.microsoft.com/face/v1.0/findsimilars"
+#     r = requests.post(api, headers=headers, data=json.dumps(body))
+#     faces = r.json()
+#     person = faces[0]
+#     for i in faces:
+#         if person["confidence"] < i["confidence"]:
+#             person = i
+#     print(person["persistedFaceId"])
+
+
 # Request headers.
 headers = {
     'Content-Type': 'application/json',
@@ -53,7 +43,7 @@ params = {
 
 # Body. The URL of a JPEG image to analyze.
 # body = {'url': 'https://upload.wikimedia.org/wikipedia/commons/c/c4/RH_Louise_Lillian_Gish.jpg'}
-if len(sys.argv)==2:
+if len(sys.argv) == 2:
     img_url = sys.argv[1]
 else:
     img_url = 'http://43.241.238.58:5000/static/upload/yuanyufeng.jpg'
@@ -61,7 +51,8 @@ body = {'url': img_url}
 
 try:
     # Execute the REST API call and get the response.
-    response = requests.request('POST', uri_base + '/face/v1.0/detect', json=body, data=None, headers=headers, params=params)
+    response = requests.request('POST', uri_base + '/face/v1.0/detect', json=body, data=None, headers=headers,
+                                params=params)
 
     data = json.loads(response.text)
 
@@ -85,10 +76,10 @@ try:
         positions[i][3] = data[i]['faceRectangle']['top']
         faceID.append(data[i]['faceId'])
 
-    #print(emotions)
-    #print(positions)
-    #print(faceID)
-    #Use neural network to determine the attention of student
+    # print(emotions)
+    # print(positions)
+    # print(faceID)
+    # Use neural network to determine the attention of student
     model = Sequential()
     model.add(Dense(64, activation='relu', input_dim=8))
     model.add(Dropout(0.25))
@@ -101,18 +92,14 @@ try:
                   optimizer=sgd,
                   metrics=['accuracy'])
     attentions = model.predict(emotions)
-    #print(attentions)
+    # print(attentions)
 
 except Exception as e:
     print('Error:')
     print(e)
 
-####################################
-
-########### Python 3.2 #############
 
 headers = {
-    # Request headers
     'Content-Type': 'application/json',
     'Ocp-Apim-Subscription-Key': '03419b61d0c34ae7bce784ed92fdbe80',
 }
@@ -133,24 +120,22 @@ for i in range(len(data)):
     try:
         conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
         conn.request("POST", "/face/v1.0/findsimilars?%s" % params, body, headers)
-        #print(body)
+        # print(body)
         response = conn.getresponse()
         data = response.read()
-        #Compute the most similar id here
+        # Compute the most similar id here
         faces = json.loads(data.decode('utf-8'))
         person = faces[0]
         for i in faces:
             if person["confidence"] < i["confidence"]:
                 person = i
-        #print(person["persistedFaceId"])
-        faceId=person["persistedFaceId"]
-        #print(json.loads(data.decode('utf-8')))
+        # print(person["persistedFaceId"])
+        faceId = person["persistedFaceId"]
+        # print(json.loads(data.decode('utf-8')))
         similarity.append(faceId)
-        #print(similarity)
+        # print(similarity)
         conn.close()
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
-print(list(zip(similarity,attentions)))
-     
-####################################
+print(list(zip(similarity, attentions)))
