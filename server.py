@@ -41,38 +41,23 @@ def api_upload():
     f = request.files['myfile']  # 从表单的file字段获取文件，myfile为该表单的name值
     if f and allowed_file(f.filename):  # 判断是否是允许上传的文件类型
         fname = secure_filename(f.filename)
-        print(fname)
-        ext = fname.rsplit('.', 1)[1]  # 获取文件后缀
-        # unix_time = int(time.time())
-        # new_filename = str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + '.' + ext  # 修改了上传的文件名
-        new_filename = fname
-        f.save(os.path.join(file_dir, new_filename))  # 保存文件到upload目录
-        # f.close()
-        token = new_filename
-        # token = base64.b64encode(new_filename)
-        print(token)
-        img_url = "http://43.241.238.58:5000/static/upload/%s" % fname
-        cmd = 'python Face/face.py  "%s"' % img_url
-        print(img_url)
-        # a = [('yyf', 0.5), ('wph', 1)]
-        # time.sleep(1)
-        result_str = subprocess.check_output(cmd,shell=True)
-        result_list = eval(result_str)
-        a = []
-        # [('4356ee9e-a35a-416e-985e-4a191db0bef4', array([ 0.01820427], dtype=float32)),
-        # ('4356ee9e-a35a-416e-985e-4a191db0bef4', array([ 0.01863985], dtype=float32))]
-        #for row in result_str:
-        #    a.append(result_list[0], result_list[1][0])
-        a=result_list
-        # print(a)
         course_id = request.form.get('id')
         date = request.form.get('date')
-        for name, attention in a:
-            sql = "insert into attention values('%s','%s','%s','%s') " % (course_id, name, date, attention)
-            print(sql)
-            cursor.execute(sql)
-            mariadb_connection.commit()
+        print(fname)
+        new_filename = fname
+
+        ext = fname.rsplit('.', 1)[1]  # 获取文件后缀
+        f.save(os.path.join(file_dir, new_filename))  # 保存文件到upload目录
+        img_url = "http://43.241.238.58:5000/static/upload/%s" % fname
+
+
+        cursor.execute("insert into imgs values('%s','%s','%s')" % (course_id,date,img_url))
+        mariadb_connection.commit()
+
+        token = new_filename
+
         return jsonify({"errno": 0, "errmsg": "上传成功", "token": token})
+
     else:
         return jsonify({"errno": 1001, "errmsg": "上传失败"})
 
@@ -88,16 +73,34 @@ def upload_speech():
     mariadb_connection.commit()
     return jsonify('Uploaded successfully')
 
+@app.route('/api/process', methods=['GET'])
+def process():
+    course_id = request.form.get('id')
+    sql = "select * from imgs where id='%s'" % (course_id)
+    print(sql)
+    cursor.execute(sql)
+    for i in cursor:
+        img_url = i['img_url']
+        cmd = 'python Face/face.py  "%s"' % img_url
+        result_str = subprocess.check_output(cmd,shell=True)
+        result_list = eval(result_str)
+        for name, attention in result_list:
+            sql = "insert into attention values('%s','%s','%s','%s') " % (course_id, name, date, attention)
+            print(sql)
+            cursor.execute(sql)
+            mariadb_connection.commit()
+        print(img_url)
+    return "OK"
+
 
 @app.route('/api/finish', methods=['GET'])
 def finish():
     course_id = request.form.get('id')
-    sql = "select * from courses where id='%s'" % (course_id)
+    sql = "select * from attention inner_join users on attention.user_id=users.face_id  where id='%s'" % (course_id)
     print(sql)
     cursor.execute(sql)
     mariadb_connection.commit()
     return sql
-
 
 @app.route('/test', methods=['GET'])
 def test():
