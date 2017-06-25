@@ -1,0 +1,50 @@
+i: 0
+len(faceID): 0
+faceID: []
+data: {'error': {'code': 'InvalidURL', 'message': 'Invalid image URL or error downloading from target server. Remote server error returned: "A task was canceled."'}}
+i: 0
+len(faceID): 1
+faceID: ['927e69f0-5f0e-4aaa-8173-41f71c730d81']
+data: [{'faceId': '927e69f0-5f0e-4aaa-8173-41f71c730d81', 'faceRectangle': {'top': 770, 'left': 1378, 'width': 1530, 'height': 1530}, 'faceAttributes': {'emotion': {'anger': 0.001, 'contempt': 0.002, 'disgust': 0.001, 'fear': 0.0, 'happiness': 0.529, 'neutral': 0.456, 'sadness': 0.001, 'surprise': 0.011}}}]
+i: 0
+len(faceID): 1
+faceID: ['927e69f0-5f0e-4aaa-8173-41f71c730d81']
+data: [{'faceId': '927e69f0-5f0e-4aaa-8173-41f71c730d81', 'faceRectangle': {'top': 770, 'left': 1378, 'width': 1530, 'height': 1530}, 'faceAttributes': {'emotion': {'anger': 0.001, 'contempt': 0.002, 'disgust': 0.001, 'fear': 0.0, 'happiness': 0.529, 'neutral': 0.456, 'sadness': 0.001, 'surprise': 0.011}}}]
+i: 0
+len(faceID): 0
+faceID: []
+data: {'error': {'code': 'InvalidURL', 'message': 'Invalid image URL or error downloading from target server. Remote server error returned: "A task was canceled."'}}
+BEFORE POST
+AFTER POST
+JSON LOADED
+i: 0
+len(faceID): 0
+faceID: []
+data: {'error': {'code': 'InvalidURL', 'message': 'Invalid image URL or error downloading from target server. Remote server error returned: "A task was canceled."'}}
+BEFORE POST
+AFTER POST
+JSON LOADED
+{'error': {'code': 'InvalidURL', 'message': 'Invalid image URL or error downloading from target server. Remote server error returned: "A task was canceled."'}}
+
+i: 0
+len(faceID): 0
+faceID: []
+data: {'error': {'code': 'InvalidURL', 'message': 'Invalid image URL or error downloading from target server. Remote server error returned: "A task was canceled."'}}
+BEFORE POST
+AFTER POST
+JSON LOADED
+{'error': {'code': 'InvalidURL', 'message': 'Invalid image URL or error downloading from target server. Remote server error returned: "A task was canceled."'}}
+
+i: 0
+len(faceID): 0
+faceID: []
+data: {'error': {'code': 'InvalidURL', 'message': 'Invalid image URL or error downloading from target server. Remote server error returned: "A task was canceled."'}}
+BEFORE POST
+AFTER POST
+JSON LOADED
+{'error': {'code': 'InvalidURL', 'message': 'Invalid image URL or error downloading from target server. Remote server error returned: "A task was canceled."'}}
+
+i: 0
+len(faceID): 0
+faceID: []
+data: {'error': {'code': 'InvalidURL', 'message': 'Invalid image URL or error downloading from target server. Remote server error returned: "A task was canceled."'}}

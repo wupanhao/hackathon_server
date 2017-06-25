@@ -6,6 +6,11 @@ from keras.layers import Dense, Dropout, Activation
 from keras.optimizers import SGD
 import h5py
 
+def printlog(s):
+    with open("log.log", "a") as f:
+        f.write(str(s) + "\n")
+
+
 subscription_key = '03419b61d0c34ae7bce784ed92fdbe80'
 
 uri_base = 'https://westus.api.cognitive.microsoft.com'
@@ -46,15 +51,22 @@ params = {
 if len(sys.argv) == 2:
     img_url = sys.argv[1]
 else:
-    img_url = 'http://43.241.238.58:5000/static/upload/yuanyufeng.jpg'
+    img_url = 'http://43.241.238.58:5000/static/upload/IMG_201706250113327673.jpg'
 body = {'url': img_url}
 
 try:
     # Execute the REST API call and get the response.
-    response = requests.request('POST', uri_base + '/face/v1.0/detect', json=body, data=None, headers=headers,
-                                params=params)
+    import time
+    time.sleep(4)
+    printlog("BEFORE POST")
+    response = requests.request('POST', uri_base + '/face/v1.0/detect', json=body, data=None, headers=headers, params=params)
+    printlog("AFTER POST")
 
     data = json.loads(response.text)
+
+    printlog("JSON LOADED")
+    printlog(str(data))
+    printlog("")
 
     emotions = np.zeros((len(data), 8))
     attentions = np.zeros(len(data))
@@ -76,6 +88,7 @@ try:
         positions[i][3] = data[i]['faceRectangle']['top']
         faceID.append(data[i]['faceId'])
 
+    printlog("FACEID PROCESSED")
     # print(emotions)
     # print(positions)
     # print(faceID)
@@ -92,6 +105,7 @@ try:
                   optimizer=sgd,
                   metrics=['accuracy'])
     attentions = model.predict(emotions)
+    printlog("MODEL FINISHED")
     # print(attentions)
 
 except Exception as e:
@@ -108,7 +122,18 @@ params = urllib.parse.urlencode({
 
 })
 similarity = []
+
+print('data:', data)
+print('faceID:', faceID)
+print('len(data): ', len(data))
+print('len(faceID): ', len(faceID))
+
 for i in range(len(data)):
+
+    printlog('i: ' + str(i))
+    printlog('len(faceID): ' + str(len(faceID)))
+    printlog('faceID: ' + str(faceID))
+    printlog('data: ' + str(data))
 
     body = """{
         "faceId":\"""" + str(faceID[i]) + """\",
@@ -125,6 +150,9 @@ for i in range(len(data)):
         data = response.read()
         # Compute the most similar id here
         faces = json.loads(data.decode('utf-8'))
+        if len(faces) == 0:
+            continue
+        # print('faces:', faces)
         person = faces[0]
         for i in faces:
             if person["confidence"] < i["confidence"]:
@@ -136,6 +164,10 @@ for i in range(len(data)):
         # print(similarity)
         conn.close()
     except Exception as e:
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        # print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        print(e)
 
-print(list(zip(similarity, attentions[0])))
+if len(attentions) != 0:
+    print(list(zip(similarity, attentions[0])))
+
+exit(0)

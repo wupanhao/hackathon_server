@@ -44,9 +44,10 @@ def api_upload():
         print(fname)
         ext = fname.rsplit('.', 1)[1]  # 获取文件后缀
         # unix_time = int(time.time())
-        new_filename = str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + '.' + ext  # 修改了上传的文件名
+        # new_filename = str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + '.' + ext  # 修改了上传的文件名
         new_filename = fname
         f.save(os.path.join(file_dir, new_filename))  # 保存文件到upload目录
+        # f.close()
         token = new_filename
         # token = base64.b64encode(new_filename)
         print(token)
@@ -54,6 +55,7 @@ def api_upload():
         cmd = 'python Face/face.py  "%s"' % img_url
         print(img_url)
         # a = [('yyf', 0.5), ('wph', 1)]
+        # time.sleep(1)
         result_str = subprocess.check_output(cmd,shell=True)
         result_list = eval(result_str)
         a = []
